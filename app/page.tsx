@@ -1,12 +1,13 @@
-import React from 'react'
-import Home from './components/Home'
+import React from "react";
+import Home from "./en/page";
+import Link from "next/link";
 
 const page = () => {
   return (
-    <div className='overflow-hidden relative'>
+    <div className="overflow-hidden relative">
       <Home />
     </div>
-  )
-}
+  );
+};
 
-export default page
+export default page;

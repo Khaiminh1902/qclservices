@@ -6,6 +6,9 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X } from "lucide-react";
 import { motion } from "framer-motion";
+import en from "../images/us_flag.png";
+import vn from "../images/vn_flag.png";
+import Image from "next/image";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -26,7 +29,19 @@ const Navbar = () => {
           </div>
         </div>
         <div className="bg-[#023f92] w-full h-[40px] items-center justify-center">
-          <div className="pl-2 font-bold mt-7 flex items-center justify-start sm:justify-center lg:justify-center bg-[#d8a339] h-[40px] w-full ml-[60px] top-0 z-10">
+          <div className="justify-end flex gap-2 items-center pr-2 pb-1 pt-1">
+            <Link href="/en" className="border border-white flex">
+              <button>
+                <Image src={en} alt="en" width={27} height={25} />
+              </button>
+            </Link>
+            <Link href="/vn" className="border border-white flex">
+              <button>
+                <Image src={vn} alt="en" width={23.39} height={25} />
+              </button>
+            </Link>
+          </div>
+          <div className="mt-0 pl-2 font-bold flex items-center justify-start sm:justify-center lg:justify-center bg-[#d8a339] h-[40px] w-full ml-[60px] top-0 z-10">
             {/* Mobile Menu Button */}
             <div className="sm:hidden">
               <button
@@ -73,13 +88,19 @@ const Navbar = () => {
               </Link>
             </div>
           </div>
-          <motion.span
-            className="text-red-500 font-extrabold flex items-end pt-4 justify-center lg:text-2xl md:text-2xl sm:text-xl"
-            animate={{ scale: [1, 1.2, 1] }} // Grow to 1.2x, then shrink back
-            transition={{ duration: 1.7, repeat: Infinity, ease: "easeInOut" }} // Infinite loop
-          >
-            <a href="tel:+84862301010">HOTLINE: 086 230 1010</a>
-          </motion.span>
+          <div className="flex justify-center">
+            <motion.span
+              className="text-red-500 font-extrabold flex items-end pt-4 justify-center lg:text-2xl md:text-2xl sm:text-xl"
+              animate={{ scale: [1, 1.2, 1] }} // Grow to 1.2x, then shrink back
+              transition={{
+                duration: 1.7,
+                repeat: Infinity,
+                ease: "easeInOut",
+              }} // Infinite loop
+            >
+              <a href="tel:+84862301010">HOTLINE: 086 230 1010</a>
+            </motion.span>
+          </div>
         </div>
       </div>
 
