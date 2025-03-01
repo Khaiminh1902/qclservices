@@ -10,7 +10,7 @@ import en from "../images/us_flag.png";
 import vn from "../images/vn_flag.png";
 import Image from "next/image";
 
-const Navbar = () => {
+const Navbar_en = () => {
   const [isOpen, setIsOpen] = useState(false);
   const pathname = usePathname();
 
@@ -147,4 +147,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default Navbar_en;

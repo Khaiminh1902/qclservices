@@ -1,24 +1,20 @@
 import React from "react";
-import Navbar from "../components/Navbar";
 import Slider from "../components/Slider";
 import Footer from "../components/Footer";
 import FixedButton from "../components/FixedButton";
-import HomePage from "../components/Letter";
-import Link from "next/link";
-import Image from "next/image";
-import en from "../images/us_flag.png";
-import vn from "../images/vn_flag.png";
+import Letter_vn from "../components/Letter_vn";
+import Navbar_vn from "../components/Navbar_vn";
 
-const Home = () => {
+const Home_vn = () => {
   return (
     <div>
-      <Navbar />
+      <Navbar_vn />
       <FixedButton />
       <Slider />
-      <HomePage />
+      <Letter_vn />
       <Footer />
     </div>
   );
 };
 
-export default Home;
+export default Home_vn;

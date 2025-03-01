@@ -3,17 +3,18 @@ import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { FC } from "react";
 
-const Letter: FC = () => {
+const HomePage: FC = () => {
   return (
     <div className="font-sans antialiased">
       {/* Header Section */}
       <header className="bg-[#023f92] text-white py-8">
         <div className="container mx-auto px-6 text-center">
           <h1 className="text-4xl font-semibold">
-            QCL Maintenance Services Co., Ltd.
+            Công ty TNHH Dịch vụ Bảo trì QCL
           </h1>
           <p className="mt-2 text-lg">
-            Your trusted partner in technical solutions and services
+            Đối tác đáng tin cậy của bạn trong các giải pháp và dịch vụ kỹ
+            thuật.
           </p>
         </div>
       </header>
@@ -22,14 +23,14 @@ const Letter: FC = () => {
       <section className="py-16 bg-white">
         <div className="container mx-auto px-6 text-center">
           <h2 className="text-3xl font-semibold mb-6 text-[#d8a339]">
-            1. Thank You for Choosing Us
+            1. Cảm ơn quý khách đã lựa chọn chúng tôi.
           </h2>
           <p className="text-lg mb-6">
-            We sincerely appreciate your trust in using the services of QCL
-            Maintenance Services Co., Ltd. Our experienced and highly skilled
-            team is committed to providing you with superior service and optimal
-            solutions for maintenance, repair, and installation of technical
-            systems.
+            Chúng tôi chân thành cảm ơn sự tin tưởng của quý khách khi sử dụng
+            dịch vụ của Công ty TNHH Dịch vụ Bảo trì QCL. Đội ngũ giàu kinh
+            nghiệm và tay nghề cao của chúng tôi cam kết mang đến cho quý khách
+            dịch vụ vượt trội cùng các giải pháp tối ưu cho việc bảo trì, sửa
+            chữa và lắp đặt các hệ thống kỹ thuật.
           </p>
         </div>
       </section>
@@ -38,18 +39,18 @@ const Letter: FC = () => {
       <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-6 text-center">
           <h2 className="text-3xl font-semibold mb-8 text-[#d8a339]">
-            2. Our Services
+            2. Dịch vụ của chúng tôi
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pt-6">
             {/* Service 1 */}
             <a href="/services#air-conditioning">
               <div className="bg-white p-6 rounded-lg shadow-lg">
                 <h3 className="text-xl font-semibold mb-4">
-                  Air Conditioning Systems
+                  Hệ thống điều hòa không khí
                 </h3>
                 <p>
-                  Installation and maintenance of air conditioning systems for
-                  optimal performance and comfort.
+                  Lắp đặt và bảo trì hệ thống điều hòa không khí để đảm bảo hiệu
+                  suất tối ưu và sự thoải mái.
                 </p>
               </div>
             </a>
@@ -58,11 +59,11 @@ const Letter: FC = () => {
             <a href="/services#electrical-plumbing">
               <div className="bg-white p-6 rounded-lg shadow-lg">
                 <h3 className="text-xl font-semibold mb-4">
-                  Electrical & Plumbing Systems
+                  Hệ thống điện và ống nước
                 </h3>
                 <p>
-                  Installation, maintenance, and repair of electrical and
-                  plumbing systems with the highest safety standards.
+                  Lắp đặt, bảo trì và sửa chữa hệ thống điện và ống nước theo
+                  các tiêu chuẩn an toàn cao nhất.
                 </p>
               </div>
             </a>
@@ -71,11 +72,11 @@ const Letter: FC = () => {
             <a href="/services#chimney-systems">
               <div className="bg-white p-6 rounded-lg shadow-lg">
                 <h3 className="text-xl font-semibold mb-4">
-                  Chimney Maintenance
+                  Bảo trì hệ thống ống khói
                 </h3>
                 <p>
-                  Inspection, cleaning, and maintenance of chimneys to ensure
-                  effective operation and prevent accidents.
+                  Kiểm tra, vệ sinh và bảo trì ống khói để đảm bảo hoạt động
+                  hiệu quả và ngăn ngừa sự cố.
                 </p>
               </div>
             </a>
@@ -84,11 +85,10 @@ const Letter: FC = () => {
             <a href="/services#wooden-furniture">
               <div className="bg-white p-6 rounded-lg shadow-lg">
                 <h3 className="text-xl font-semibold mb-4">
-                  Wooden Furniture Repair
+                  Sửa chữa đồ nội thất gỗ
                 </h3>
                 <p>
-                  Maintaining aesthetic value and improving durability of wooden
-                  furniture.
+                  Duy trì giá trị thẩm mỹ và nâng cao độ bền cho đồ nội thất gỗ.
                 </p>
               </div>
             </a>
@@ -97,11 +97,11 @@ const Letter: FC = () => {
             <a href="/services#construction-decoration">
               <div className="bg-white p-6 rounded-lg shadow-lg">
                 <h3 className="text-xl font-semibold mb-4">
-                  Interior Design & Construction
+                  Thiết kế và thi công nội thất
                 </h3>
                 <p>
-                  Design and build luxurious living spaces tailored to the
-                  personal needs of our customers.
+                  Thiết kế và xây dựng không gian sống sang trọng, phù hợp với
+                  nhu cầu cá nhân của khách hàng.
                 </p>
               </div>
             </a>
@@ -113,22 +113,20 @@ const Letter: FC = () => {
       <section className="py-16 bg-white">
         <div className="container mx-auto px-6 text-center">
           <h2 className="text-3xl font-semibold mb-6 text-[#d8a339]">
-            3. Our Commitment to You
+            3. Cam kết của chúng tôi đối với quý khách
           </h2>
           <div className="flex flex-col sm:flex-row space-y-8 sm:space-y-0 sm:space-x-8 pt-8">
             {/* Category 1 */}
             <div className="bg-gray-100 p-6 rounded-lg shadow-lg sm:flex-1">
               <h3 className="text-xl font-semibold mb-4">
-                Exceptional Quality
+                Chất lượng vượt trội
               </h3>
-              <p>Using the most modern materials and technology.</p>
+              <p>Sử dụng vật liệu và công nghệ hiện đại nhất.</p>
             </div>
 
             {/* Category 2 */}
             <div className="bg-gray-100 p-6 rounded-lg shadow-lg sm:flex-1">
-              <h3 className="text-xl font-semibold mb-4">
-                Competitive Pricing
-              </h3>
+              <h3 className="text-xl font-semibold mb-4">Giá cả hợp lí</h3>
               <p>
                 Offering reasonable and effective investments for customers.
               </p>
@@ -157,4 +155,4 @@ const Letter: FC = () => {
   );
 };
 
-export default Letter;
+export default HomePage;
