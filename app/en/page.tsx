@@ -8,7 +8,6 @@ import Navbar_en from "../components/Navbar_en";
 const Home_vn = () => {
   return (
     <div>
-      <Navbar_en />
       <FixedButton />
       <Slider />
       <Letter />

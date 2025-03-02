@@ -8,7 +8,6 @@ import Navbar_vn from "../components/Navbar_vn";
 const Home_vn = () => {
   return (
     <div>
-      <Navbar_vn />
       <FixedButton />
       <Slider />
       <Letter_vn />
