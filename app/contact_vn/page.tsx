@@ -1,6 +1,5 @@
 import FixedButton from "../components/FixedButton";
 import Footer from "../components/Footer";
-import Navbar from "../components/Navbar_en";
 import Address_Contact from "./Address_Contact";
 import ContactUs from "./ContactUs";
 import Header from "./Header";
