@@ -43,7 +43,7 @@ const HomePage: FC = () => {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pt-6">
             {/* Service 1 */}
-            <a href="/services#air-conditioning">
+            <a href="/services_vn#air-conditioning">
               <div className="bg-white p-6 rounded-lg shadow-lg">
                 <h3 className="text-xl font-semibold mb-4">
                   Bảo trì hệ thống điều hòa không khí
@@ -56,7 +56,7 @@ const HomePage: FC = () => {
             </a>
 
             {/* Service 2 */}
-            <a href="/services#electrical-plumbing">
+            <a href="/services_vn#electrical-plumbing">
               <div className="bg-white p-6 rounded-lg shadow-lg">
                 <h3 className="text-xl font-semibold mb-4">
                   Bảo trì hệ thống điện và ống nước
@@ -69,7 +69,7 @@ const HomePage: FC = () => {
             </a>
 
             {/* Service 3 */}
-            <a href="/services#chimney-systems">
+            <a href="/services_vn#chimney-systems">
               <div className="bg-white p-6 rounded-lg shadow-lg">
                 <h3 className="text-xl font-semibold mb-4">
                   Bảo trì hệ thống ống khói
@@ -82,7 +82,7 @@ const HomePage: FC = () => {
             </a>
 
             {/* Service 4 */}
-            <a href="/services#wooden-furniture">
+            <a href="/services_vn#wooden-furniture">
               <div className="bg-white p-6 rounded-lg shadow-lg">
                 <h3 className="text-xl font-semibold mb-4">
                   Bảo trì và sửa chữa nội thất gỗ
@@ -95,7 +95,7 @@ const HomePage: FC = () => {
             </a>
 
             {/* Service 5 */}
-            <a href="/services#construction-decoration">
+            <a href="/services_vn#construction-decoration">
               <div className="bg-white p-6 rounded-lg shadow-lg">
                 <h3 className="text-xl font-semibold mb-4">
                   Thi công và bảo trì nội thất

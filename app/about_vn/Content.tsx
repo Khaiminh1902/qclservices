@@ -12,10 +12,10 @@ const AboutUs = () => {
             Về Chúng Tôi
           </h2>
           <p className="text-lg text-gray-600 mt-4">
-            At{" "}
+            Tại{" "}
             <span className="text-[#d8a339] font-semibold">QCL Services</span>,
-            we blend innovation and reliability to deliver exceptional solutions
-            tailored to your needs.
+            chúng tôi kết hợp sự đổi mới và độ tin cậy để mang đến các giải pháp
+            bảo trì vượt trội, được tùy chỉnh theo nhu cầu của quý khách.
           </p>
         </div>
 
@@ -132,51 +132,53 @@ const AboutUs = () => {
           {/* Mission */}
           <div className="bg-white shadow-md p-6 rounded-lg text-center hover:shadow-lg transition-shadow duration-300">
             <h3 className="text-xl font-semibold text-[#d8a339] mb-4">
-              Our Mission
+              Nhiệm vụ của chúng tôi
             </h3>
             <p className="text-gray-700">
-              To provide exceptional services that prioritize quality,
-              efficiency, and client success. We aim to simplify challenges and
-              deliver innovative solutions that drive meaningful results.
+              Cung cấp các dịch vụ xuất sắc, ưu tiên chất lượng, hiệu quả và
+              thành công của khách hàng. Chúng tôi hướng đến việc đơn giản hóa
+              các thách thức và mang lại các giải pháp sáng tạo, tạo ra kết quả
+              ý nghĩa.
             </p>
           </div>
 
           {/* Vision */}
           <div className="bg-white shadow-md p-6 rounded-lg text-center hover:shadow-lg transition-shadow duration-300">
             <h3 className="text-xl font-semibold text-[#d8a339] mb-4">
-              Our Vision
+              Giá trị của chúng tôi
             </h3>
             <p className="text-gray-700">
-              To become a leading name in our industry, recognized for our
-              unwavering commitment to excellence, cutting-edge solutions, and a
-              customer-first approach.
+              Trở thành một cái tên hàng đầu trong ngành của chúng tôi, được
+              công nhận nhờ cam kết không ngừng nghỉ đối với sự xuất sắc, các
+              giải pháp tiên tiến và cách tiếp cận ưu tiên khách hàng.
             </p>
           </div>
 
           {/* Values */}
           <div className="bg-white shadow-md p-6 rounded-lg hover:shadow-lg transition-shadow duration-300">
             <h3 className="text-xl font-semibold text-[#d8a339] mb-4 text-center">
-              Our Values
+              Giá trị của chúng tôi
             </h3>
             <ul className="text-gray-700 space-y-4">
               <li>
-                <span className="font-semibold text-gray-800">Integrity:</span>{" "}
-                Honesty and transparency guide our decisions.
+                <span className="font-semibold text-gray-800">Liêm chính:</span>{" "}
+                Sự trung thực và minh bạch định hướng cho các quyết định của
+                chúng tôi.
               </li>
               <li>
-                <span className="font-semibold text-gray-800">Excellence:</span>{" "}
-                Striving for the highest standards in every service.
+                <span className="font-semibold text-gray-800">Xuất sắc:</span>{" "}
+                Phấn đấu đạt tiêu chuẩn cao nhất trong mọi dịch vụ.
               </li>
               <li>
-                <span className="font-semibold text-gray-800">Innovation:</span>{" "}
-                Embracing creativity and advancements for forward-thinking
-                solutions.
+                <span className="font-semibold text-gray-800">Đổi mới:</span>{" "}
+                Ứng dụng sự sáng tạo và các tiến bộ để mang đến các giải pháp
+                hướng tới tương lai.
               </li>
               <li>
                 <span className="font-semibold text-gray-800">
-                  Customer-Centricity:
+                  Đặt khách hàng làm trung tâm:
                 </span>{" "}
-                Prioritizing your satisfaction above all.
+                Ưu tiên sự hài lòng của quý khách trên hết.
               </li>
             </ul>
           </div>
@@ -187,7 +189,7 @@ const AboutUs = () => {
       <div className="flex justify-center items-center mt-24">
         <Link href="/contact">
           <Button className="h-[50px] w-[250px] bg-[#d8a339] text-white font-semibold rounded-lg shadow-lg border-2 border-transparent hover:border-[#c58e2f] hover:bg-[#c58e2f] hover:text-black transition duration-300 ease-in-out transform hover:scale-105">
-            Contact Us Now
+            Liên hệ với chúng tôi ngay
           </Button>
         </Link>
       </div>

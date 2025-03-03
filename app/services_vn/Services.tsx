@@ -11,7 +11,7 @@ const Services: React.FC = () => {
         {/* Left navigation */}
         <nav className=" p-6 text-black hidden sm:block border-r">
           <h2 className="text-2xl font-semibold mb-6 text-[#d8a339]">
-            Services
+            Dịch vụ
           </h2>
           <ul className="space-y-4">
             <li>
@@ -20,7 +20,7 @@ const Services: React.FC = () => {
                 className="hover:text-gray-700 flex items-center space-x-2"
               >
                 <Dot />
-                <span>Air Conditioning Systems</span>
+                <span>Hệ Thống Máy Lạnh</span>
               </a>
             </li>
             <li>
@@ -29,7 +29,7 @@ const Services: React.FC = () => {
                 className="hover:text-gray-700 flex items-center space-x-2"
               >
                 <Dot />
-                <span>Electrical &amp; Plumbing Systems</span>
+                <span>Hệ Thống Điện & Ống Nước</span>
               </a>
             </li>
             <li>
@@ -38,7 +38,7 @@ const Services: React.FC = () => {
                 className="hover:text-gray-700 flex items-center space-x-2"
               >
                 <Dot />
-                <span>Chimney Systems</span>
+                <span>Hệ Thống Ống Khói</span>
               </a>
             </li>
             <li>
@@ -47,7 +47,7 @@ const Services: React.FC = () => {
                 className="hover:text-gray-700 flex items-center space-x-2"
               >
                 <Dot />
-                <span>Wooden Furniture</span>
+                <span>Bảo Trì & Sửa Chữa Nội Thất Gỗ</span>
               </a>
             </li>
             <li>
@@ -56,7 +56,7 @@ const Services: React.FC = () => {
                 className="hover:text-gray-700 flex items-center space-x-2"
               >
                 <Dot />
-                <span>Construction &amp; Interior Decoration</span>
+                <span>Thi Công & Bảo Trì Nội Thất</span>
               </a>
             </li>
           </ul>
@@ -68,26 +68,24 @@ const Services: React.FC = () => {
             {/* Air Conditioning Systems */}
             <section id="air-conditioning">
               <h2 className="text-3xl font-semibold text-[#d8a339] mb-4">
-                Air Conditioning Systems
+                Hệ Thống Máy Lạnh
               </h2>
               <p>
-                We provide comprehensive services for air conditioning systems,
-                including installation, maintenance, and repair. Our experienced
-                technicians will ensure your system runs smoothly and
-                efficiently, keeping your space comfortable all year.
+                Chúng tôi cung cấp dịch vụ toàn diện cho hệ thống máy lạnh, bao
+                gồm lắp đặt, bảo trì và sửa chữa. Các kỹ thuật viên giàu kinh
+                nghiệm của chúng tôi sẽ đảm bảo hệ thống của quý khách hoạt động
+                trơn tru và hiệu quả, giữ cho không gian của quý khách luôn
+                thoải mái suốt cả năm.
               </p>
               <ul className="list-disc pl-6 mt-4">
                 <li>
-                  Installation of residential and commercial air conditioning
-                  units
+                  Lắp đặt các đơn vị điều hòa không khí dân dụng và thương mại
                 </li>
-                <li>Routine maintenance to improve energy efficiency</li>
+                <li>Bảo trì định kỳ để nâng cao hiệu suất năng lượng</li>
+                <li>Sửa chữa và khắc phục sự cố cho mọi loại máy lạnh</li>
                 <li>
-                  Repairs and troubleshooting for all types of air conditioners
-                </li>
-                <li>
-                  Regular cleaning to prevent breakdowns and ensure optimal
-                  performance
+                  Vệ sinh định kỳ để ngăn ngừa hỏng hóc và đảm bảo hiệu suất tối
+                  ưu
                 </li>
               </ul>
             </section>
@@ -95,46 +93,50 @@ const Services: React.FC = () => {
             {/* Electrical & Plumbing Systems */}
             <section id="electrical-plumbing">
               <h2 className="text-3xl font-semibold text-[#d8a339] mb-4">
-                Electrical &amp; Plumbing Systems
+                Hệ Thống Điện & Ống Nước
               </h2>
               <p>
-                Our team specializes in the installation, maintenance, and
-                repair of electrical and plumbing systems for both residential
-                and commercial properties. We ensure safety and efficiency while
-                keeping your home or business running smoothly.
+                Đội ngũ của chúng tôi chuyên về lắp đặt, bảo trì và sửa chữa hệ
+                thống điện và ống nước cho cả bất động sản dân dụng và thương
+                mại. Chúng tôi đảm bảo an toàn và hiệu quả, đồng thời giữ cho
+                ngôi nhà hoặc doanh nghiệp của quý khách hoạt động trơn tru.
               </p>
               <ul className="list-disc pl-6 mt-4">
-                <li>Installation of electrical wiring and lighting systems</li>
-                <li>Repairs of faulty electrical wiring and outlets</li>
+                <li>Lắp đặt hệ thống dây điện và chiếu sáng</li>
+                <li>Sửa chữa dây điện và ổ cắm bị hỏng</li>
                 <li>
-                  Plumbing installations, including faucets, toilets, and piping
+                  Lắp đặt hệ thống ống nước, bao gồm vòi nước, bồn cầu và đường
+                  ống
                 </li>
                 <li>
-                  Maintenance and repairs of water heaters, pipes, and drains
+                  Bảo trì và sửa chữa máy nước nóng, đường ống và cống thoát
+                  nước
                 </li>
-                <li>
-                  Safety inspections for both electrical and plumbing systems
-                </li>
+                <li>Kiểm tra an toàn cho cả hệ thống điện và ống nước</li>
               </ul>
             </section>
 
             {/* Chimney Systems */}
             <section id="chimney-systems">
               <h2 className="text-3xl font-semibold text-[#d8a339] mb-4">
-                Chimney Systems
+                Hệ Thống Ống Khói
               </h2>
               <p>
-                We provide expert chimney system maintenance, ensuring your home
-                is safe and your chimney is functioning efficiently. Our
-                services include inspections, cleaning, and repairs to prevent
-                hazards such as chimney fires and carbon monoxide buildup.
+                Chúng tôi cung cấp dịch vụ bảo trì hệ thống ống khói chuyên
+                nghiệp, đảm bảo ngôi nhà của quý khách an toàn và ống khói hoạt
+                động hiệu quả. Các dịch vụ của chúng tôi bao gồm kiểm tra, vệ
+                sinh và sửa chữa để ngăn ngừa các nguy cơ như cháy ống khói và
+                tích tụ khí carbon monoxide.
               </p>
               <ul className="list-disc pl-6 mt-4">
-                <li>Inspection of chimney liners, caps, and flues</li>
-                <li>Cleaning to remove soot, creosote, and blockages</li>
-                <li>Repairs to chimney structure and components</li>
+                <li>Kiểm tra lớp lót, nắp và ống dẫn của ống khói</li>
                 <li>
-                  Safety checks to prevent leaks and ensure proper ventilation
+                  Vệ sinh để loại bỏ muội than, nhựa creosote và tắc nghẽn
+                </li>
+                <li>Sửa chữa cấu trúc và các bộ phận của ống khói</li>
+                <li>
+                  Kiểm tra an toàn để ngăn ngừa rò rỉ và đảm bảo thông gió hợp
+                  lý
                 </li>
               </ul>
             </section>
@@ -142,48 +144,49 @@ const Services: React.FC = () => {
             {/* Wooden Furniture */}
             <section id="wooden-furniture">
               <h2 className="text-3xl font-semibold text-[#d8a339] mb-4">
-                Wooden Furniture
+                Bảo Trì & Sửa Chữa Nội Thất Gỗ
               </h2>
               <p>
-                Our services include the repair and restoration of wooden
-                furniture, bringing back the beauty and functionality of your
-                cherished pieces. Whether it's fixing broken furniture or
-                enhancing the appearance of worn-out wood, we have you covered.
+                Dịch vụ của chúng tôi bao gồm sửa chữa và phục hồi nội thất gỗ,
+                mang lại vẻ đẹp và chức năng cho những món đồ quý khách yêu
+                thích. Dù là sửa chữa nội thất gỗ bị hỏng hay nâng cấp vẻ ngoài
+                của gỗ đã cũ, chúng tôi luôn sẵn sàng phục vụ.
               </p>
               <ul className="list-disc pl-6 mt-4">
-                <li>Repairing damaged or broken wooden furniture</li>
-                <li>Restoring faded or worn-out wood surfaces</li>
+                <li>Sửa chữa nội thất gỗ bị hư hỏng hoặc gãy</li>
+                <li>Phục hồi bề mặt gỗ bị phai màu hoặc mòn</li>
                 <li>
-                  Re-finishing and polishing furniture to its original state
+                  Tái hoàn thiện và đánh bóng nội thất gỗ về trạng thái ban đầu
                 </li>
-                <li>Custom woodwork solutions for unique furniture needs</li>
+                <li>
+                  Giải pháp chế tác gỗ tùy chỉnh cho nhu cầu nội thất đặc biệt
+                </li>
               </ul>
             </section>
 
             {/* Construction & Interior Decoration */}
             <section id="construction-decoration">
               <h2 className="text-3xl font-semibold text-[#d8a339] mb-4">
-                Construction &amp; Interior Decoration
+                Thi Công & Bảo Trì Nội Thất
               </h2>
               <p>
-                Our construction and interior decoration services help you
-                create spaces that are both functional and aesthetically
-                pleasing. From new builds to home renovations, our team offers
-                tailored solutions for every project.
+                Dịch vụ thi công và trang trí nội thất của chúng tôi giúp quý
+                khách tạo ra không gian vừa tiện dụng vừa thẩm mỹ. Từ xây dựng
+                mới đến cải tạo nhà cửa, đội ngũ của chúng tôi cung cấp các giải
+                pháp phù hợp cho mọi dự án.
               </p>
               <ul className="list-disc pl-6 mt-4">
                 <li>
-                  Complete construction services for residential and commercial
-                  spaces
+                  Dịch vụ thi công toàn diện cho không gian dân dụng và thương
+                  mại
                 </li>
                 <li>
-                  Interior design consultations to bring your vision to life
+                  Tư vấn thiết kế nội thất để biến ý tưởng của quý khách thành
+                  hiện thực
                 </li>
-                <li>Custom furniture and decor solutions</li>
-                <li>Renovation and remodeling of existing spaces</li>
-                <li>
-                  Wall painting, flooring installation, and lighting design
-                </li>
+                <li>Giải pháp nội thất và trang trí tùy chỉnh</li>
+                <li>Cải tạo và nâng cấp không gian hiện có</li>
+                <li>Sơn tường, lắp đặt sàn và thiết kế chiếu sáng</li>
               </ul>
             </section>
           </div>

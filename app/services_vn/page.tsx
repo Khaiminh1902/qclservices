@@ -1,5 +1,5 @@
 import FixedButton from "../components/FixedButton";
-import Footer from "../components/Footer";
+import Footer_vn from "../components/Footer_vn";
 import Services from "./Services";
 
 export default function About() {
@@ -7,7 +7,7 @@ export default function About() {
     <div>
       <FixedButton />
       <Services />
-      <Footer />
+      <Footer_vn />
     </div>
   );
 }

@@ -4,11 +4,11 @@ import { Dot } from "lucide-react";
 const Contact = () => {
   return (
     <div className="mt-[20px] flex flex-col font-bold text-[28px] pl-10 text-[#d8a339]">
-      <span>CONTACT</span>
+      <span>LIÊN HỆ</span>
       <span className="text-[15px] text-black font-normal pl-6 mt-2 flex">
         <Dot className="pb-[5px]" />
         <span>
-          Phone:{" "}
+          Số Điện Thoại:{" "}
           <a
             href="tel:+84862301010"
             className="text-red-500 font-semibold hover:underline"

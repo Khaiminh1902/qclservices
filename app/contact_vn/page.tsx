@@ -1,5 +1,5 @@
 import FixedButton from "../components/FixedButton";
-import Footer from "../components/Footer";
+import Footer_vn from "../components/Footer_vn";
 import Address_Contact from "./Address_Contact";
 import ContactUs from "./ContactUs";
 import Header from "./Header";
@@ -15,7 +15,7 @@ export default function About() {
         <ContactUs />
       </div>
       <Map />
-      <Footer />
+      <Footer_vn />
     </div>
   );
 }

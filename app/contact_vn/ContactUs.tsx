@@ -32,19 +32,22 @@ const ContactUs = () => {
 
     if (response.ok) {
       alert(
-        "Your message has been sent! We will get back to you within 24 hours."
+        "Tin nhắn của quý khách đã được gửi! Chúng tôi sẽ liên hệ lại trong vòng 24 giờ."
       );
     } else {
-      alert("There was an issue sending your message, please try again later.");
+      alert("Có lỗi khi gửi tin nhắn, vui lòng thử lại sau.");
     }
   };
 
   return (
     <div className="flex flex-col items-center justify-center mt-[50px] lg:mt-[20px] lg:pr-10">
-      <h1 className="text-[#d8a339] text-[28px] font-bold mb-4">CONTACT US</h1>
+      <h1 className="text-[#d8a339] text-[28px] font-bold mb-4">
+        LIÊN HỆ VỚI CHÚNG TÔI
+      </h1>
       <p className="mb-6 text-center">
-        If you have any inquiries, feedback, or suggestions, please complete the
-        form below and submit it to us. We sincerely appreciate your input!
+        Nếu quý khách có bất kỳ câu hỏi, ý kiến đóng góp hoặc đề xuất nào, vui
+        lòng điền vào biểu mẫu dưới đây và gửi cho chúng tôi. Chúng tôi trân
+        trọng cảm ơn sự đóng góp của quý khách!
       </p>
       <form
         onSubmit={handleSubmit}
@@ -56,7 +59,7 @@ const ContactUs = () => {
               htmlFor="name"
               className="block text-sm font-medium text-black"
             >
-              Customer/Company Name *
+              Tên Khách Hàng/Công Ty *
             </label>
             <input
               type="text"
@@ -73,7 +76,7 @@ const ContactUs = () => {
               htmlFor="phone"
               className="block text-sm font-medium text-black"
             >
-              Phone Number *
+              Số Điện Thoại *
             </label>
             <input
               type="tel"
@@ -110,7 +113,7 @@ const ContactUs = () => {
               htmlFor="address"
               className="block text-sm font-medium text-black"
             >
-              Address *
+              Địa Chỉ *
             </label>
             <input
               type="text"
@@ -129,7 +132,7 @@ const ContactUs = () => {
             htmlFor="contactPerson"
             className="block text-sm font-medium text-black"
           >
-            Main Contact Person (Contact Name) *
+            Người Liên Hệ Chính (Tên Người Liên Hệ) *
           </label>
           <input
             type="text"
@@ -147,7 +150,7 @@ const ContactUs = () => {
             htmlFor="description"
             className="block text-sm font-medium text-black"
           >
-            Description
+            Mô Tả
           </label>
           <textarea
             id="description"
@@ -163,7 +166,7 @@ const ContactUs = () => {
           type="submit"
           className="w-full bg-[#d8a339] text-white py-2 px-2 rounded-md hover:bg-[#b17a2e] focus:outline-none focus:ring-2 focus:ring-[#b17a2e] transition-all duration-300"
         >
-          Submit Information
+          Gửi Thông Tin
         </button>
       </form>
     </div>
