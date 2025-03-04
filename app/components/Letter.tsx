@@ -147,7 +147,7 @@ const Letter: FC = () => {
       </section>
 
       <div className="flex justify-center items-center mt-7">
-        <Link href="/contact">
+        <Link href="/en/contact">
           <Button className="h-[50px] w-[250px] bg-[#d8a339] text-white font-semibold rounded-lg shadow-lg border-2 border-transparent hover:border-[#c58e2f] hover:bg-[#c58e2f] hover:text-black transition duration-300 ease-in-out transform hover:scale-105">
             Contact Us Now
           </Button>
