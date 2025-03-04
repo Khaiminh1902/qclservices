@@ -189,7 +189,7 @@ const AboutUs = () => {
       <div className="flex justify-center items-center mt-24">
         <Link href="/contact">
           <Button className="h-[50px] w-[250px] bg-[#d8a339] text-white font-semibold rounded-lg shadow-lg border-2 border-transparent hover:border-[#c58e2f] hover:bg-[#c58e2f] hover:text-black transition duration-300 ease-in-out transform hover:scale-105">
-            Liên hệ với chúng tôi ngay
+            Liên hệ ngay
           </Button>
         </Link>
       </div>

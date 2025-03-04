@@ -10,7 +10,7 @@ const HomePage: FC = () => {
       <header className="bg-[#023f92] text-white py-8">
         <div className="container mx-auto px-6 text-center">
           <h1 className="text-4xl font-semibold">
-            Công ty TNHH Thương Mại và Dịch Vụ Bảo Trì QCL
+            Công ty TNHH Thương Mại và Dịch Vụ QCL
           </h1>
           <p className="mt-2 text-lg">
             Đối tác đáng tin cậy của bạn trong các giải pháp bảo trì và dịch vụ
@@ -26,11 +26,11 @@ const HomePage: FC = () => {
             1. Lời cảm ơn đến quý khách
           </h2>
           <p className="text-lg mb-6">
-            Công ty TNHH Thương Mại và Dịch Vụ Bảo Trì QCL xin gửi lời cảm ơn
-            chân thành đến quý khách đã tin tưởng lựa chọn dịch vụ của chúng
-            tôi. Với đội ngũ kỹ thuật viên giàu kinh nghiệm và chuyên môn cao,
-            chúng tôi cam kết cung cấp các dịch vụ bảo trì, sửa chữa và lắp đặt
-            hệ thống kỹ thuật chất lượng cao, đáp ứng mọi nhu cầu của quý khách.
+            Công ty TNHH Thương Mại và Dịch Vụ QCL xin gửi lời cảm ơn chân thành
+            đến quý khách đã tin tưởng lựa chọn dịch vụ của chúng tôi. Với đội
+            ngũ kỹ thuật viên giàu kinh nghiệm và chuyên môn cao, chúng tôi cam
+            kết cung cấp các dịch vụ bảo trì, sửa chữa và lắp đặt hệ thống kỹ
+            thuật chất lượng cao, đáp ứng mọi nhu cầu của quý khách.
           </p>
         </div>
       </section>
