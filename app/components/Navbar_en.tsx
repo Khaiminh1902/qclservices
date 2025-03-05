@@ -68,6 +68,7 @@ const Navbar_en = () => {
                 About
               </Link>
               <Link
+                suppressHydrationWarning
                 href="/en/services"
                 className={`${
                   isActive("/en/services")

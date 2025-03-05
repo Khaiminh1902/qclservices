@@ -1,4 +1,3 @@
-// pages/index.tsx
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { FC } from "react";
@@ -42,7 +41,7 @@ const Letter: FC = () => {
           </h2>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 pt-6">
             {/* Service 1 */}
-            <a href="/services#air-conditioning">
+            <a href="/en/services#air-conditioning">
               <div className="bg-white p-6 rounded-lg shadow-lg">
                 <h3 className="text-xl font-semibold mb-4">
                   Air Conditioning Systems
@@ -55,7 +54,7 @@ const Letter: FC = () => {
             </a>
 
             {/* Service 2 */}
-            <a href="/services#electrical-plumbing">
+            <a href="/en/services#electrical-plumbing">
               <div className="bg-white p-6 rounded-lg shadow-lg">
                 <h3 className="text-xl font-semibold mb-4">
                   Electrical & Plumbing Systems
@@ -68,7 +67,7 @@ const Letter: FC = () => {
             </a>
 
             {/* Service 3 */}
-            <a href="/services#chimney-systems">
+            <a href="/en/services#chimney-systems">
               <div className="bg-white p-6 rounded-lg shadow-lg">
                 <h3 className="text-xl font-semibold mb-4">
                   Chimney Maintenance
@@ -81,7 +80,7 @@ const Letter: FC = () => {
             </a>
 
             {/* Service 4 */}
-            <a href="/services#wooden-furniture">
+            <a href="/en/services#wooden-furniture">
               <div className="bg-white p-6 rounded-lg shadow-lg">
                 <h3 className="text-xl font-semibold mb-4">
                   Wooden Furniture Repair
@@ -94,7 +93,7 @@ const Letter: FC = () => {
             </a>
 
             {/* Service 5 */}
-            <a href="/services#construction-decoration">
+            <a href="/en/services#construction-decoration">
               <div className="bg-white p-6 rounded-lg shadow-lg">
                 <h3 className="text-xl font-semibold mb-4">
                   Interior Design & Construction
