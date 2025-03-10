@@ -83,7 +83,7 @@ const Footer_vn = () => {
       <div className="bg-[#0058ef] text-white flex justify-center items-center text-[10px] md:text-sm lg:text-sm p-2">
         Bản Quyền 2025
         <Copyright className="h-[16px]" />
-        Công ty TNHH Dịch Vụ Bảo Trì QCL. Mọi quyền được bảo lưu.
+        Công ty TNHH Thương Mại và Dịch Vụ QCL. Mọi quyền được bảo lưu.
       </div>
     </footer>
   );
