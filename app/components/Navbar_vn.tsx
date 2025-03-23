@@ -84,6 +84,14 @@ const Navbar_vn = () => {
                 Dịch Vụ
               </Link>
               <Link
+                href="/vn/blog"
+                className={`${
+                  isActive("/vn/blog") ? "underline font-bold" : "text-white"
+                }`}
+              >
+                Blog
+              </Link>
+              <Link
                 href="/vn/contact_vn"
                 className={`${
                   isActive("/vn/contact_vn")
@@ -136,6 +144,14 @@ const Navbar_vn = () => {
               }`}
             >
               Dịch Vụ
+            </Link>
+            <Link
+              href="/vn/blog"
+              className={`block text-white hover:bg-gray-700 bg-[#d8a339] rounded-md px-3 py-2 ${
+                isActive("/vn/blog") ? "underline font-bold" : ""
+              }`}
+            >
+              Blog
             </Link>
             <Link
               href="/vn/contact_vn"

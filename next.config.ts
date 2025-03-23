@@ -8,10 +8,12 @@ const nextConfig: NextConfig = {
       { source: "/vn/about_vn", destination: "/about_vn" },
       { source: "/vn/services_vn", destination: "/services_vn" },
       { source: "/vn/contact_vn", destination: "/contact_vn" },
+      { source: "/vn/blog", destination: "/blog_vn" },
       { source: "/en", destination: "/" }, // English homepage
       { source: "/en/about", destination: "/about" },
       { source: "/en/services", destination: "/services" },
       { source: "/en/contact", destination: "/contact" },
+      { source: "/en/blog", destination: "/blog" },
     ];
   },
 };

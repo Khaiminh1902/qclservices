@@ -4,7 +4,7 @@ import Footer from "../components/Footer";
 import FixedButton from "../components/FixedButton";
 import Letter from "../components/Letter";
 
-const Home_vn = () => {
+const Home_en = () => {
   return (
     <div>
       <FixedButton />
@@ -15,4 +15,4 @@ const Home_vn = () => {
   );
 };
 
-export default Home_vn;
+export default Home_en;

@@ -79,6 +79,14 @@ const Navbar_en = () => {
                 Services
               </Link>
               <Link
+                href="/en/blog"
+                className={`${
+                  isActive("/en/blog") ? "underline font-bold" : "text-white"
+                }`}
+              >
+                Blog
+              </Link>
+              <Link
                 href="/en/contact"
                 className={`${
                   isActive("/en/contact") ? "underline font-bold" : "text-white"
@@ -129,6 +137,14 @@ const Navbar_en = () => {
               }`}
             >
               Services
+            </Link>
+            <Link
+              href="/en/blog"
+              className={`block text-white hover:bg-gray-700 bg-[#d8a339] rounded-md px-3 py-2 ${
+                isActive("/en/blog") ? "underline font-bold" : ""
+              }`}
+            >
+              Blog
             </Link>
             <Link
               href="/en/contact"
