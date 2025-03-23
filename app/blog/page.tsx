@@ -27,10 +27,10 @@ export default function BlogPage() {
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        console.log("Attempting to fetch English blogs from Firestore...");
-        const querySnapshot = await getDocs(collection(db, "blogs"));
+        console.log("Attempting to fetch English blog posts from Firestore...");
+        const querySnapshot = await getDocs(collection(db, "blogs_vn"));
         console.log(
-          "Successfully fetched English blogs:",
+          "Successfully fetched English blog posts:",
           querySnapshot.docs.length,
           "documents"
         );
@@ -40,11 +40,11 @@ export default function BlogPage() {
         })) as Blog[];
         setBlogs(blogData);
       } catch (error) {
-        console.error("Error fetching English blogs:", error);
+        console.error("Error fetching English blog posts:", error);
         if (error instanceof Error) {
-          alert(`Failed to fetch blogs: ${error.message}`);
+          alert(`Unable to fetch blog posts: ${error.message}`);
         } else {
-          alert("Failed to fetch blogs: An unexpected error occurred");
+          alert("Unable to fetch blog posts: An unknown error occurred");
         }
       }
     };
@@ -63,7 +63,7 @@ export default function BlogPage() {
         return;
       }
       setImage(file);
-      console.log("Selected image:", file.name, `(${file.size} bytes)`);
+      console.log("Image selected:", file.name, `(${file.size} bytes)`);
     }
   };
 
@@ -89,7 +89,7 @@ export default function BlogPage() {
       if (image) {
         const formData = new FormData();
         formData.append("image", image);
-        console.log("Uploading image to Cloudinary...");
+        console.log("Uploading image to ImgBB...");
         const response = await fetch("/api/upload-image", {
           method: "POST",
           body: formData,
@@ -119,14 +119,14 @@ export default function BlogPage() {
         console.log("No image selected for upload");
       }
 
-      console.log("Attempting to add a new English blog to Firestore...");
-      const docRef = await addDoc(collection(db, "blogs_en"), {
+      console.log("Attempting to add a new English blog post to Firestore...");
+      const docRef = await addDoc(collection(db, "blogs_vn"), {
         title,
         content,
         imageUrl,
         createdAt: new Date().toISOString(),
       });
-      console.log("English blog added with ID:", docRef.id);
+      console.log("English blog post added with ID:", docRef.id);
       setBlogs([
         ...blogs,
         {
@@ -142,11 +142,11 @@ export default function BlogPage() {
       setImage(null);
       setPassword("");
     } catch (error) {
-      console.error("Error adding English blog:", error);
+      console.error("Error adding English blog post:", error);
       if (error instanceof Error) {
-        alert(`Failed to add blog post: ${error.message}`);
+        alert(`Unable to add blog post: ${error.message}`);
       } else {
-        alert("Failed to add blog post: An unexpected error occurred");
+        alert("Unable to add blog post: An unknown error occurred");
       }
     } finally {
       setIsSubmitting(false);
@@ -157,16 +157,16 @@ export default function BlogPage() {
     if (!confirm("Are you sure you want to delete this blog post?")) return;
     setDeletingId(blogId);
     try {
-      console.log(`Attempting to delete English blog with ID: ${blogId}`);
-      await deleteDoc(doc(db, "blogs_en", blogId));
+      console.log(`Attempting to delete English blog post with ID: ${blogId}`);
+      await deleteDoc(doc(db, "blogs_vn", blogId));
       setBlogs(blogs.filter((blog) => blog.id !== blogId));
-      console.log(`Successfully deleted English blog with ID: ${blogId}`);
+      console.log(`Successfully deleted English blog post with ID: ${blogId}`);
     } catch (error) {
-      console.error("Error deleting English blog:", error);
+      console.error("Error deleting English blog post:", error);
       if (error instanceof Error) {
-        alert(`Failed to delete blog post: ${error.message}`);
+        alert(`Unable to delete blog post: ${error.message}`);
       } else {
-        alert("Failed to delete blog post: An unexpected error occurred");
+        alert("Unable to delete blog post: An unknown error occurred");
       }
     } finally {
       setDeletingId(null);
@@ -178,10 +178,11 @@ export default function BlogPage() {
       <h1 className="text-3xl md:text-4xl font-bold text-[#d8a339] text-center mt-8 mb-6">
         Blog Page
       </h1>
+
       <form onSubmit={handleSubmit} className="mb-8">
         <div className="mb-4">
           <label htmlFor="title" className="block text-lg font-medium">
-            Blog Title
+            Blog Post Title
           </label>
           <input
             type="text"
@@ -189,13 +190,13 @@ export default function BlogPage() {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             className="w-full p-2 border rounded"
-            placeholder="Enter blog title"
+            placeholder="Enter blog post title"
             disabled={isSubmitting}
           />
         </div>
         <div className="mb-4">
           <label htmlFor="content" className="block text-lg font-medium">
-            Blog Content
+            Blog Post Content
           </label>
           <textarea
             id="content"
@@ -203,13 +204,13 @@ export default function BlogPage() {
             onChange={(e) => setContent(e.target.value)}
             className="w-full p-2 border rounded"
             rows={5}
-            placeholder="Enter blog content"
+            placeholder="Enter blog post content"
             disabled={isSubmitting}
           />
         </div>
         <div className="mb-4">
           <label htmlFor="image" className="block text-lg font-medium">
-            Blog Image
+            Blog Post Image
           </label>
           <input
             type="file"
@@ -237,7 +238,7 @@ export default function BlogPage() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="w-full p-2 border rounded"
-            placeholder="Enter password to add blog"
+            placeholder="Enter password to add blog post"
             disabled={isSubmitting}
           />
           {passwordError && (
@@ -251,11 +252,11 @@ export default function BlogPage() {
           }`}
           disabled={isSubmitting}
         >
-          {isSubmitting ? "Adding Blog..." : "Add Blog"}
+          {isSubmitting ? "Adding blog post..." : "Add Blog Post"}
         </button>
       </form>
 
-      <h2 className="text-2xl font-semibold mb-4">All Blogs</h2>
+      <h2 className="text-2xl font-semibold mb-4">All Blog Posts</h2>
       <ul className="space-y-4">
         {blogs.map((blog) => (
           <li
@@ -263,7 +264,7 @@ export default function BlogPage() {
             className="border p-4 rounded flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4"
           >
             <div className="flex-1 min-w-0">
-              <Link href={`/en/blog/${blog.id}`}>
+              <Link href={`/vn/blog/${blog.id}`}>
                 <h3 className="text-xl font-medium text-blue-500 hover:underline truncate">
                   {blog.title}
                 </h3>
@@ -276,7 +277,8 @@ export default function BlogPage() {
                 />
               )}
               <p className="text-gray-600 truncate">
-                {blog.content ? blog.content.slice(0, 100) : "No content..."}...
+                {blog.content ? blog.content.slice(0, 100) : "No content..."}
+                ...
               </p>
             </div>
             <button
