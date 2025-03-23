@@ -22,8 +22,7 @@ export default function BlogPage() {
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const CORRECT_PASSWORD =
-    process.env.NEXT_PUBLIC_BLOG_PASSWORD || "19022011Qlbb";
+  const CORRECT_PASSWORD = process.env.BLOG_PASSWORD || "19022011Qlbb";
 
   useEffect(() => {
     const fetchBlogs = async () => {
