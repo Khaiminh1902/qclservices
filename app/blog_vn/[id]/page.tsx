@@ -28,6 +28,11 @@ export default function BlogDetail({
         }
       } catch (error) {
         console.error("Lỗi khi lấy bài viết tiếng Việt:", error);
+        if (error instanceof Error) {
+          alert(`Không thể lấy bài viết: ${error.message}`);
+        } else {
+          alert("Không thể lấy bài viết: Đã xảy ra lỗi không xác định");
+        }
       } finally {
         setLoading(false);
       }
@@ -49,8 +54,15 @@ export default function BlogDetail({
   return (
     <div className="container mx-auto p-4">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold mb-4 mt-10">{blog.title}</h1>
+        <h1 className="text-3xl font-bold mt-8">{blog.title}</h1>
       </div>
+      {blog.imageUrl && (
+        <img
+          src={blog.imageUrl}
+          alt={blog.title}
+          className="w-full h-64 object-cover mb-4 rounded"
+        />
+      )}
       <p className="text-gray-800">{blog.content || "Không có nội dung..."}</p>
       <div className="mt-4">
         <a href="/vn/blog" className="text-blue-500 hover:underline">

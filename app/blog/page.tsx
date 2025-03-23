@@ -15,59 +15,141 @@ import { Blog } from "@/lib/types";
 export default function BlogPage() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [image, setImage] = useState<File | null>(null);
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [blogs, setBlogs] = useState<Blog[]>([]);
   const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const CORRECT_PASSWORD = process.env.NEXT_PUBLIC_BLOG_PASSWORD;
 
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        console.log("Attempting to fetch blogs from Firestore...");
+        console.log("Attempting to fetch English blogs from Firestore...");
         const querySnapshot = await getDocs(collection(db, "blogs"));
-        console.log("Successfully fetched blogs:", querySnapshot.docs);
+        console.log(
+          "Successfully fetched English blogs:",
+          querySnapshot.docs.length,
+          "documents"
+        );
         const blogData = querySnapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
         })) as Blog[];
         setBlogs(blogData);
       } catch (error) {
-        console.error("Error fetching blogs:", error);
+        console.error("Error fetching English blogs:", error);
+        if (error instanceof Error) {
+          alert(`Failed to fetch blogs: ${error.message}`);
+        } else {
+          alert("Failed to fetch blogs: An unexpected error occurred");
+        }
       }
     };
     fetchBlogs();
   }, []);
 
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      if (!file.type.startsWith("image/")) {
+        alert("Please upload an image file (e.g., JPG, PNG).");
+        return;
+      }
+      if (file.size > 5 * 1024 * 1024) {
+        alert("Image size must be less than 5MB.");
+        return;
+      }
+      setImage(file);
+      console.log("Selected image:", file.name, `(${file.size} bytes)`);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setPasswordError("");
+    setIsSubmitting(true);
 
     if (password !== CORRECT_PASSWORD) {
       setPasswordError("Incorrect password. Please try again.");
+      setIsSubmitting(false);
       return;
     }
 
-    if (!title || !content) return;
+    if (!title || !content) {
+      alert("Please enter both a title and content.");
+      setIsSubmitting(false);
+      return;
+    }
 
     try {
-      console.log("Attempting to add a new blog to Firestore...");
-      const docRef = await addDoc(collection(db, "blogs"), {
+      let imageUrl = "";
+      if (image) {
+        const formData = new FormData();
+        formData.append("image", image);
+        console.log("Uploading image to Cloudinary...");
+        const response = await fetch("/api/upload-image", {
+          method: "POST",
+          body: formData,
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          console.error("Image upload failed:", errorData);
+          throw new Error(
+            `API error: ${response.status} ${
+              errorData.error || response.statusText
+            }`
+          );
+        }
+
+        const data = await response.json();
+        if (data.imageUrl) {
+          imageUrl = data.imageUrl;
+          console.log("Image uploaded successfully, URL:", imageUrl);
+        } else {
+          console.error("Image upload response missing imageUrl:", data);
+          throw new Error(
+            "Failed to upload image: " + (data.error || "Unknown error")
+          );
+        }
+      } else {
+        console.log("No image selected for upload");
+      }
+
+      console.log("Attempting to add a new English blog to Firestore...");
+      const docRef = await addDoc(collection(db, "blogs_en"), {
         title,
         content,
+        imageUrl,
         createdAt: new Date().toISOString(),
       });
-      console.log("Blog added with ID:", docRef.id);
+      console.log("English blog added with ID:", docRef.id);
       setBlogs([
         ...blogs,
-        { id: docRef.id, title, content, createdAt: new Date().toISOString() },
+        {
+          id: docRef.id,
+          title,
+          content,
+          imageUrl,
+          createdAt: new Date().toISOString(),
+        },
       ]);
       setTitle("");
       setContent("");
+      setImage(null);
       setPassword("");
     } catch (error) {
-      console.error("Error adding blog:", error);
+      console.error("Error adding English blog:", error);
+      if (error instanceof Error) {
+        alert(`Failed to add blog post: ${error.message}`);
+      } else {
+        alert("Failed to add blog post: An unexpected error occurred");
+      }
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -75,12 +157,17 @@ export default function BlogPage() {
     if (!confirm("Are you sure you want to delete this blog post?")) return;
     setDeletingId(blogId);
     try {
-      console.log(`Attempting to delete blog with ID: ${blogId}`);
-      await deleteDoc(doc(db, "blogs", blogId));
+      console.log(`Attempting to delete English blog with ID: ${blogId}`);
+      await deleteDoc(doc(db, "blogs_en", blogId));
       setBlogs(blogs.filter((blog) => blog.id !== blogId));
-      console.log(`Successfully deleted blog with ID: ${blogId}`);
+      console.log(`Successfully deleted English blog with ID: ${blogId}`);
     } catch (error) {
-      console.error("Error deleting blog:", error);
+      console.error("Error deleting English blog:", error);
+      if (error instanceof Error) {
+        alert(`Failed to delete blog post: ${error.message}`);
+      } else {
+        alert("Failed to delete blog post: An unexpected error occurred");
+      }
     } finally {
       setDeletingId(null);
     }
@@ -88,14 +175,13 @@ export default function BlogPage() {
 
   return (
     <div className="container mx-auto p-4 sm:p-6 lg:p-8">
-      <h1 className="text-3xl md:text-4xl font-bold text-[#d8a339] text-center mt-8 mb-10">
-        Helpful Information
+      <h1 className="text-3xl md:text-4xl font-bold text-[#d8a339] text-center mt-8 mb-6">
+        Blog Page
       </h1>
-
       <form onSubmit={handleSubmit} className="mb-8">
         <div className="mb-4">
           <label htmlFor="title" className="block text-lg font-medium">
-            Title
+            Blog Title
           </label>
           <input
             type="text"
@@ -103,12 +189,13 @@ export default function BlogPage() {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             className="w-full p-2 border rounded"
-            placeholder="Enter title"
+            placeholder="Enter blog title"
+            disabled={isSubmitting}
           />
         </div>
         <div className="mb-4">
           <label htmlFor="content" className="block text-lg font-medium">
-            Content
+            Blog Content
           </label>
           <textarea
             id="content"
@@ -116,8 +203,29 @@ export default function BlogPage() {
             onChange={(e) => setContent(e.target.value)}
             className="w-full p-2 border rounded"
             rows={5}
-            placeholder="Enter content"
+            placeholder="Enter blog content"
+            disabled={isSubmitting}
           />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="image" className="block text-lg font-medium">
+            Blog Image
+          </label>
+          <input
+            type="file"
+            id="image"
+            accept="image/*"
+            onChange={handleImageChange}
+            className="w-full p-2 border rounded"
+            disabled={isSubmitting}
+          />
+          {image && (
+            <img
+              src={URL.createObjectURL(image)}
+              alt="Preview"
+              className="w-full h-48 object-cover mt-2 rounded"
+            />
+          )}
         </div>
         <div className="mb-4">
           <label htmlFor="password" className="block text-lg font-medium">
@@ -129,7 +237,8 @@ export default function BlogPage() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="w-full p-2 border rounded"
-            placeholder="Enter password"
+            placeholder="Enter password to add blog"
+            disabled={isSubmitting}
           />
           {passwordError && (
             <p className="text-red-500 mt-2">{passwordError}</p>
@@ -137,9 +246,12 @@ export default function BlogPage() {
         </div>
         <button
           type="submit"
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          className={`bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 ${
+            isSubmitting ? "opacity-50 cursor-not-allowed" : ""
+          }`}
+          disabled={isSubmitting}
         >
-          Add Blog
+          {isSubmitting ? "Adding Blog..." : "Add Blog"}
         </button>
       </form>
 
@@ -152,14 +264,19 @@ export default function BlogPage() {
           >
             <div className="flex-1 min-w-0">
               <Link href={`/en/blog/${blog.id}`}>
-                {" "}
-                {/* Update the link to include /en */}
                 <h3 className="text-xl font-medium text-blue-500 hover:underline truncate">
                   {blog.title}
                 </h3>
               </Link>
+              {blog.imageUrl && (
+                <img
+                  src={blog.imageUrl}
+                  alt={blog.title}
+                  className="w-full h-48 object-cover mt-2 rounded"
+                />
+              )}
               <p className="text-gray-600 truncate">
-                {blog.content.slice(0, 100)}...
+                {blog.content ? blog.content.slice(0, 100) : "No content..."}...
               </p>
             </div>
             <button

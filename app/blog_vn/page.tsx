@@ -15,10 +15,13 @@ import { Blog } from "@/lib/types";
 export default function BlogPage() {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
+  const [image, setImage] = useState<File | null>(null);
   const [password, setPassword] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [blogs, setBlogs] = useState<Blog[]>([]);
   const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const CORRECT_PASSWORD = process.env.NEXT_PUBLIC_BLOG_PASSWORD;
 
   useEffect(() => {
@@ -26,7 +29,11 @@ export default function BlogPage() {
       try {
         console.log("Đang cố gắng lấy bài viết tiếng Việt từ Firestore...");
         const querySnapshot = await getDocs(collection(db, "blogs_vn"));
-        console.log("Lấy bài viết tiếng Việt thành công:", querySnapshot.docs);
+        console.log(
+          "Lấy bài viết tiếng Việt thành công:",
+          querySnapshot.docs.length,
+          "documents"
+        );
         const blogData = querySnapshot.docs.map((doc) => ({
           id: doc.id,
           ...doc.data(),
@@ -34,39 +41,115 @@ export default function BlogPage() {
         setBlogs(blogData);
       } catch (error) {
         console.error("Lỗi khi lấy bài viết tiếng Việt:", error);
+        if (error instanceof Error) {
+          alert(`Không thể lấy bài viết: ${error.message}`);
+        } else {
+          alert("Không thể lấy bài viết: Đã xảy ra lỗi không xác định");
+        }
       }
     };
     fetchBlogs();
   }, []);
 
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      if (!file.type.startsWith("image/")) {
+        alert("Vui lòng tải lên tệp hình ảnh (ví dụ: JPG, PNG).");
+        return;
+      }
+      if (file.size > 5 * 1024 * 1024) {
+        alert("Kích thước hình ảnh phải nhỏ hơn 5MB.");
+        return;
+      }
+      setImage(file);
+      console.log("Đã chọn hình ảnh:", file.name, `(${file.size} bytes)`);
+    }
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setPasswordError("");
+    setIsSubmitting(true);
 
     if (password !== CORRECT_PASSWORD) {
       setPasswordError("Mật khẩu không đúng. Vui lòng thử lại.");
+      setIsSubmitting(false);
       return;
     }
 
-    if (!title || !content) return;
+    if (!title || !content) {
+      alert("Vui lòng nhập cả tiêu đề và nội dung.");
+      setIsSubmitting(false);
+      return;
+    }
 
     try {
+      let imageUrl = "";
+      if (image) {
+        const formData = new FormData();
+        formData.append("image", image);
+        console.log("Đang tải hình ảnh lên ImgBB...");
+        const response = await fetch("/api/upload-image", {
+          method: "POST",
+          body: formData,
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          console.error("Tải hình ảnh thất bại:", errorData);
+          throw new Error(
+            `API error: ${response.status} ${
+              errorData.error || response.statusText
+            }`
+          );
+        }
+
+        const data = await response.json();
+        if (data.imageUrl) {
+          imageUrl = data.imageUrl;
+          console.log("Tải hình ảnh thành công, URL:", imageUrl);
+        } else {
+          console.error("Phản hồi tải hình ảnh thiếu imageUrl:", data);
+          throw new Error(
+            "Failed to upload image: " + (data.error || "Unknown error")
+          );
+        }
+      } else {
+        console.log("Không có hình ảnh được chọn để tải lên");
+      }
+
       console.log("Đang cố gắng thêm bài viết tiếng Việt mới vào Firestore...");
       const docRef = await addDoc(collection(db, "blogs_vn"), {
         title,
         content,
+        imageUrl,
         createdAt: new Date().toISOString(),
       });
       console.log("Bài viết tiếng Việt đã được thêm với ID:", docRef.id);
       setBlogs([
         ...blogs,
-        { id: docRef.id, title, content, createdAt: new Date().toISOString() },
+        {
+          id: docRef.id,
+          title,
+          content,
+          imageUrl,
+          createdAt: new Date().toISOString(),
+        },
       ]);
       setTitle("");
       setContent("");
+      setImage(null);
       setPassword("");
     } catch (error) {
       console.error("Lỗi khi thêm bài viết tiếng Việt:", error);
+      if (error instanceof Error) {
+        alert(`Không thể thêm bài viết: ${error.message}`);
+      } else {
+        alert("Không thể thêm bài viết: Đã xảy ra lỗi không xác định");
+      }
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -80,6 +163,11 @@ export default function BlogPage() {
       console.log(`Xóa bài viết tiếng Việt thành công với ID: ${blogId}`);
     } catch (error) {
       console.error("Lỗi khi xóa bài viết tiếng Việt:", error);
+      if (error instanceof Error) {
+        alert(`Không thể xóa bài viết: ${error.message}`);
+      } else {
+        alert("Không thể xóa bài viết: Đã xảy ra lỗi không xác định");
+      }
     } finally {
       setDeletingId(null);
     }
@@ -87,7 +175,7 @@ export default function BlogPage() {
 
   return (
     <div className="container mx-auto p-4 sm:p-6 lg:p-8">
-      <h1 className="text-3xl md:text-4xl font-bold text-[#d8a339] items-center justify-center flex mt-8 mb-10">
+      <h1 className="text-3xl md:text-4xl font-bold text-[#d8a339] text-center mt-8 mb-6">
         Trang Blog
       </h1>
 
@@ -103,6 +191,7 @@ export default function BlogPage() {
             onChange={(e) => setTitle(e.target.value)}
             className="w-full p-2 border rounded"
             placeholder="Nhập tiêu đề bài viết"
+            disabled={isSubmitting}
           />
         </div>
         <div className="mb-4">
@@ -116,7 +205,28 @@ export default function BlogPage() {
             className="w-full p-2 border rounded"
             rows={5}
             placeholder="Nhập nội dung bài viết"
+            disabled={isSubmitting}
           />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="image" className="block text-lg font-medium">
+            Hình ảnh bài viết
+          </label>
+          <input
+            type="file"
+            id="image"
+            accept="image/*"
+            onChange={handleImageChange}
+            className="w-full p-2 border rounded"
+            disabled={isSubmitting}
+          />
+          {image && (
+            <img
+              src={URL.createObjectURL(image)}
+              alt="Preview"
+              className="w-full h-48 object-cover mt-2 rounded"
+            />
+          )}
         </div>
         <div className="mb-4">
           <label htmlFor="password" className="block text-lg font-medium">
@@ -129,6 +239,7 @@ export default function BlogPage() {
             onChange={(e) => setPassword(e.target.value)}
             className="w-full p-2 border rounded"
             placeholder="Nhập mật khẩu để thêm bài viết"
+            disabled={isSubmitting}
           />
           {passwordError && (
             <p className="text-red-500 mt-2">{passwordError}</p>
@@ -136,9 +247,12 @@ export default function BlogPage() {
         </div>
         <button
           type="submit"
-          className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
+          className={`bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 ${
+            isSubmitting ? "opacity-50 cursor-not-allowed" : ""
+          }`}
+          disabled={isSubmitting}
         >
-          Thêm bài viết
+          {isSubmitting ? "Đang thêm bài viết..." : "Thêm bài viết"}
         </button>
       </form>
 
@@ -155,6 +269,13 @@ export default function BlogPage() {
                   {blog.title}
                 </h3>
               </Link>
+              {blog.imageUrl && (
+                <img
+                  src={blog.imageUrl}
+                  alt={blog.title}
+                  className="w-full h-48 object-cover mt-2 rounded"
+                />
+              )}
               <p className="text-gray-600 truncate">
                 {blog.content
                   ? blog.content.slice(0, 100)

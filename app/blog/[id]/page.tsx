@@ -24,10 +24,15 @@ export default function BlogDetail({
         if (docSnap.exists()) {
           setBlog({ id: docSnap.id, ...docSnap.data() } as Blog);
         } else {
-          console.log("Cannot find blog!");
+          console.log("No such English blog!");
         }
       } catch (error) {
-        console.error("Error while finding blog:", error);
+        console.error("Error fetching English blog:", error);
+        if (error instanceof Error) {
+          alert(`Failed to fetch blog: ${error.message}`);
+        } else {
+          alert("Failed to fetch blog: An unexpected error occurred");
+        }
       } finally {
         setLoading(false);
       }
@@ -47,12 +52,19 @@ export default function BlogDetail({
   return (
     <div className="container mx-auto p-4">
       <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold mb-4 mt-10">{blog.title}</h1>
+        <h1 className="text-3xl font-bold mt-8">{blog.title}</h1>
       </div>
+      {blog.imageUrl && (
+        <img
+          src={blog.imageUrl}
+          alt={blog.title}
+          className="w-full h-64 object-cover mb-4 rounded"
+        />
+      )}
       <p className="text-gray-800">{blog.content || "No content..."}</p>
       <div className="mt-4">
         <a href="/en/blog" className="text-blue-500 hover:underline">
-          Return
+          Back to Blogs
         </a>
       </div>
     </div>
