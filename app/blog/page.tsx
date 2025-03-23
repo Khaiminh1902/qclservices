@@ -28,7 +28,7 @@ export default function BlogPage() {
     const fetchBlogs = async () => {
       try {
         console.log("Attempting to fetch English blog posts from Firestore...");
-        const querySnapshot = await getDocs(collection(db, "blogs_vn"));
+        const querySnapshot = await getDocs(collection(db, "blogs"));
         console.log(
           "Successfully fetched English blog posts:",
           querySnapshot.docs.length,
@@ -120,7 +120,7 @@ export default function BlogPage() {
       }
 
       console.log("Attempting to add a new English blog post to Firestore...");
-      const docRef = await addDoc(collection(db, "blogs_vn"), {
+      const docRef = await addDoc(collection(db, "blogs"), {
         title,
         content,
         imageUrl,
@@ -158,7 +158,7 @@ export default function BlogPage() {
     setDeletingId(blogId);
     try {
       console.log(`Attempting to delete English blog post with ID: ${blogId}`);
-      await deleteDoc(doc(db, "blogs_vn", blogId));
+      await deleteDoc(doc(db, "blogs", blogId));
       setBlogs(blogs.filter((blog) => blog.id !== blogId));
       console.log(`Successfully deleted English blog post with ID: ${blogId}`);
     } catch (error) {
