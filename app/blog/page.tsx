@@ -21,16 +21,20 @@ export default function BlogPage() {
   const [blogs, setBlogs] = useState<Blog[]>([]);
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  // New states for deletion password
+  const [deletePassword, setDeletePassword] = useState("");
+  const [deletePasswordError, setDeletePasswordError] = useState("");
+  const [showDeletePrompt, setShowDeletePrompt] = useState<string | null>(null);
 
   const CORRECT_PASSWORD = process.env.BLOG_PASSWORD || "19022011Qlbb";
 
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        console.log("Attempting to fetch English blog posts from Firestore...");
+        console.log("Attempting to fetch posts...");
         const querySnapshot = await getDocs(collection(db, "blogs"));
         console.log(
-          "Successfully fetched English blog posts:",
+          "Successfully fetched posts:",
           querySnapshot.docs.length,
           "documents"
         );
@@ -40,7 +44,7 @@ export default function BlogPage() {
         })) as Blog[];
         setBlogs(blogData);
       } catch (error) {
-        console.error("Error fetching English blog posts:", error);
+        console.error("Error fetching posts:", error);
         if (error instanceof Error) {
           alert(`Unable to fetch blog posts: ${error.message}`);
         } else {
@@ -119,14 +123,14 @@ export default function BlogPage() {
         console.log("No image selected for upload");
       }
 
-      console.log("Attempting to add a new English blog post to Firestore...");
+      console.log("Attempting to add a new post...");
       const docRef = await addDoc(collection(db, "blogs"), {
         title,
         content,
         imageUrl,
         createdAt: new Date().toISOString(),
       });
-      console.log("English blog post added with ID:", docRef.id);
+      console.log("Post added with ID:", docRef.id);
       setBlogs([
         ...blogs,
         {
@@ -142,47 +146,64 @@ export default function BlogPage() {
       setImage(null);
       setPassword("");
     } catch (error) {
-      console.error("Error adding English blog post:", error);
+      console.error("Error adding post:", error);
       if (error instanceof Error) {
-        alert(`Unable to add blog post: ${error.message}`);
+        alert(`Unable to add post: ${error.message}`);
       } else {
-        alert("Unable to add blog post: An unknown error occurred");
+        alert("Unable to add post: An unknown error occurred");
       }
     } finally {
       setIsSubmitting(false);
     }
   };
 
+  const initiateDelete = (blogId: string) => {
+    setShowDeletePrompt(blogId);
+    setDeletePassword("");
+    setDeletePasswordError("");
+  };
+
   const handleDelete = async (blogId: string) => {
-    if (!confirm("Are you sure you want to delete this blog post?")) return;
+    if (deletePassword !== CORRECT_PASSWORD) {
+      setDeletePasswordError("Incorrect password. Please try again.");
+      return;
+    }
+
     setDeletingId(blogId);
     try {
-      console.log(`Attempting to delete English blog post with ID: ${blogId}`);
+      console.log(`Attempting to delete post with ID: ${blogId}`);
       await deleteDoc(doc(db, "blogs", blogId));
       setBlogs(blogs.filter((blog) => blog.id !== blogId));
-      console.log(`Successfully deleted English blog post with ID: ${blogId}`);
+      console.log(`Successfully deleted post with ID: ${blogId}`);
+      setShowDeletePrompt(null); // Close the prompt
     } catch (error) {
-      console.error("Error deleting English blog post:", error);
+      console.error("Error deleting post:", error);
       if (error instanceof Error) {
-        alert(`Unable to delete blog post: ${error.message}`);
+        alert(`Unable to delete post: ${error.message}`);
       } else {
-        alert("Unable to delete blog post: An unknown error occurred");
+        alert("Unable to delete post: An unknown error occurred");
       }
     } finally {
       setDeletingId(null);
     }
   };
 
+  const cancelDelete = () => {
+    setShowDeletePrompt(null);
+    setDeletePassword("");
+    setDeletePasswordError("");
+  };
+
   return (
     <div className="container mx-auto p-4 sm:p-6 lg:p-8">
       <h1 className="text-3xl md:text-4xl font-bold text-[#d8a339] text-center mt-8 mb-6">
-        Blog Page
+        Helpful Information
       </h1>
 
       <form onSubmit={handleSubmit} className="mb-8">
         <div className="mb-4">
           <label htmlFor="title" className="block text-lg font-medium">
-            Blog Post Title
+            Title
           </label>
           <input
             type="text"
@@ -190,13 +211,13 @@ export default function BlogPage() {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             className="w-full p-2 border rounded"
-            placeholder="Enter blog post title"
+            placeholder="Enter the title"
             disabled={isSubmitting}
           />
         </div>
         <div className="mb-4">
           <label htmlFor="content" className="block text-lg font-medium">
-            Blog Post Content
+            Content
           </label>
           <textarea
             id="content"
@@ -204,13 +225,13 @@ export default function BlogPage() {
             onChange={(e) => setContent(e.target.value)}
             className="w-full p-2 border rounded"
             rows={5}
-            placeholder="Enter blog post content"
+            placeholder="Enter the content"
             disabled={isSubmitting}
           />
         </div>
         <div className="mb-4">
           <label htmlFor="image" className="block text-lg font-medium">
-            Blog Post Image
+            Image
           </label>
           <input
             type="file"
@@ -224,7 +245,7 @@ export default function BlogPage() {
             <img
               src={URL.createObjectURL(image)}
               alt="Preview"
-              className="w-full h-48 object-cover mt-2 rounded"
+              className="w-full h-full mt-2 rounded"
             />
           )}
         </div>
@@ -238,7 +259,7 @@ export default function BlogPage() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="w-full p-2 border rounded"
-            placeholder="Enter password to add blog post"
+            placeholder="Enter password"
             disabled={isSubmitting}
           />
           {passwordError && (
@@ -252,11 +273,11 @@ export default function BlogPage() {
           }`}
           disabled={isSubmitting}
         >
-          {isSubmitting ? "Adding blog post..." : "Add Blog Post"}
+          {isSubmitting ? "Adding post..." : "Add Post"}
         </button>
       </form>
 
-      <h2 className="text-2xl font-semibold mb-4">All Blog Posts</h2>
+      <h2 className="text-2xl font-semibold mb-4">All Posts</h2>
       <ul className="space-y-4">
         {blogs.map((blog) => (
           <li
@@ -264,34 +285,73 @@ export default function BlogPage() {
             className="border p-4 rounded flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4"
           >
             <div className="flex-1 min-w-0">
-              <Link href={`/en/blog/${blog.id}`}>
-                <h3 className="text-xl font-medium text-blue-500 hover:underline truncate">
-                  {blog.title}
-                </h3>
-              </Link>
               {blog.imageUrl && (
                 <img
                   src={blog.imageUrl}
                   alt={blog.title}
-                  className="w-full h-48 object-cover mt-2 rounded"
+                  className="w-full h-full object-cover mt-2 rounded"
                 />
               )}
-              <p className="text-gray-600 truncate">
+              <Link href={`/en/blog/${blog.id}`}>
+                <h3 className="text-2xl font-medium text-blue-500 hover:underline truncate mb-2 mt-6">
+                  {blog.title}
+                </h3>
+              </Link>
+              <p className="text-gray-600 truncate text-sm">
                 {blog.content ? blog.content.slice(0, 100) : "No content..."}
                 ...
               </p>
             </div>
-            <button
-              onClick={() => handleDelete(blog.id)}
-              className={`px-3 py-1 rounded text-white ${
-                deletingId === blog.id
-                  ? "bg-red-300 cursor-not-allowed"
-                  : "bg-red-500 hover:bg-red-600"
-              }`}
-              disabled={deletingId === blog.id}
-            >
-              {deletingId === blog.id ? "Deleting..." : "Delete"}
-            </button>
+            <div className="relative">
+              <button
+                onClick={() => initiateDelete(blog.id)}
+                className={`px-3 py-1 rounded text-white ${
+                  deletingId === blog.id
+                    ? "bg-red-300 cursor-not-allowed"
+                    : "bg-red-500 hover:bg-red-600"
+                }`}
+                disabled={deletingId === blog.id}
+              >
+                {deletingId === blog.id ? "Deleting..." : "Delete"}
+              </button>
+              {showDeletePrompt === blog.id && (
+                <div className="absolute top-0 right-0 mt-10 bg-white border rounded p-4 shadow-lg z-10">
+                  <label
+                    htmlFor={`delete-password-${blog.id}`}
+                    className="block text-sm font-medium"
+                  >
+                    Enter Password to Delete
+                  </label>
+                  <input
+                    type="password"
+                    id={`delete-password-${blog.id}`}
+                    value={deletePassword}
+                    onChange={(e) => setDeletePassword(e.target.value)}
+                    className="w-full p-2 border rounded mt-2"
+                    placeholder="Enter password"
+                  />
+                  {deletePasswordError && (
+                    <p className="text-red-500 mt-2 text-sm">
+                      {deletePasswordError}
+                    </p>
+                  )}
+                  <div className="mt-4 flex gap-2">
+                    <button
+                      onClick={() => handleDelete(blog.id)}
+                      className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
+                    >
+                      Confirm
+                    </button>
+                    <button
+                      onClick={cancelDelete}
+                      className="bg-gray-500 text-white px-3 py-1 rounded hover:bg-gray-600"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
           </li>
         ))}
       </ul>

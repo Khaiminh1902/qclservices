@@ -21,16 +21,20 @@ export default function BlogPage() {
   const [blogs, setBlogs] = useState<Blog[]>([]);
   const [deletingId, setDeletingId] = useState<string | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  // New states for deletion password
+  const [deletePassword, setDeletePassword] = useState("");
+  const [deletePasswordError, setDeletePasswordError] = useState("");
+  const [showDeletePrompt, setShowDeletePrompt] = useState<string | null>(null);
 
   const CORRECT_PASSWORD = process.env.BLOG_PASSWORD || "19022011Qlbb";
 
   useEffect(() => {
     const fetchBlogs = async () => {
       try {
-        console.log("Đang cố gắng lấy bài viết tiếng Việt từ Firestore...");
+        console.log("Đang cố gắng lấy bài viết từ Firestore...");
         const querySnapshot = await getDocs(collection(db, "blogs_vn"));
         console.log(
-          "Lấy bài viết tiếng Việt thành công:",
+          "Lấy bài viết thành công:",
           querySnapshot.docs.length,
           "documents"
         );
@@ -40,7 +44,7 @@ export default function BlogPage() {
         })) as Blog[];
         setBlogs(blogData);
       } catch (error) {
-        console.error("Lỗi khi lấy bài viết tiếng Việt:", error);
+        console.error("Lỗi khi lấy bài viết:", error);
         if (error instanceof Error) {
           alert(`Không thể lấy bài viết: ${error.message}`);
         } else {
@@ -119,14 +123,14 @@ export default function BlogPage() {
         console.log("Không có hình ảnh được chọn để tải lên");
       }
 
-      console.log("Đang cố gắng thêm bài viết tiếng Việt mới vào Firestore...");
+      console.log("Đang cố gắng thêm bài viết mới vào Firestore...");
       const docRef = await addDoc(collection(db, "blogs_vn"), {
         title,
         content,
         imageUrl,
         createdAt: new Date().toISOString(),
       });
-      console.log("Bài viết tiếng Việt đã được thêm với ID:", docRef.id);
+      console.log("Bài viết đã được thêm với ID:", docRef.id);
       setBlogs([
         ...blogs,
         {
@@ -142,7 +146,7 @@ export default function BlogPage() {
       setImage(null);
       setPassword("");
     } catch (error) {
-      console.error("Lỗi khi thêm bài viết tiếng Việt:", error);
+      console.error("Lỗi khi thêm bài viết:", error);
       if (error instanceof Error) {
         alert(`Không thể thêm bài viết: ${error.message}`);
       } else {
@@ -153,16 +157,27 @@ export default function BlogPage() {
     }
   };
 
+  const initiateDelete = (blogId: string) => {
+    setShowDeletePrompt(blogId);
+    setDeletePassword("");
+    setDeletePasswordError("");
+  };
+
   const handleDelete = async (blogId: string) => {
-    if (!confirm("Bạn có chắc chắn muốn xóa bài viết này không?")) return;
+    if (deletePassword !== CORRECT_PASSWORD) {
+      setDeletePasswordError("Mật khẩu không đúng. Vui lòng thử lại.");
+      return;
+    }
+
     setDeletingId(blogId);
     try {
-      console.log(`Đang cố gắng xóa bài viết tiếng Việt với ID: ${blogId}`);
+      console.log(`Đang cố gắng xóa bài viết với ID: ${blogId}`);
       await deleteDoc(doc(db, "blogs_vn", blogId));
       setBlogs(blogs.filter((blog) => blog.id !== blogId));
-      console.log(`Xóa bài viết tiếng Việt thành công với ID: ${blogId}`);
+      console.log(`Xóa bài viết thành công với ID: ${blogId}`);
+      setShowDeletePrompt(null); // Close the prompt
     } catch (error) {
-      console.error("Lỗi khi xóa bài viết tiếng Việt:", error);
+      console.error("Lỗi khi xóa bài viết:", error);
       if (error instanceof Error) {
         alert(`Không thể xóa bài viết: ${error.message}`);
       } else {
@@ -173,16 +188,22 @@ export default function BlogPage() {
     }
   };
 
+  const cancelDelete = () => {
+    setShowDeletePrompt(null);
+    setDeletePassword("");
+    setDeletePasswordError("");
+  };
+
   return (
     <div className="container mx-auto p-4 sm:p-6 lg:p-8">
       <h1 className="text-3xl md:text-4xl font-bold text-[#d8a339] text-center mt-8 mb-6">
-        Trang Blog
+        Thông Tin Hiểu Ích
       </h1>
 
       <form onSubmit={handleSubmit} className="mb-8">
         <div className="mb-4">
           <label htmlFor="title" className="block text-lg font-medium">
-            Tiêu đề bài viết
+            Tiêu đề
           </label>
           <input
             type="text"
@@ -190,13 +211,13 @@ export default function BlogPage() {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
             className="w-full p-2 border rounded"
-            placeholder="Nhập tiêu đề bài viết"
+            placeholder="Nhập tiêu đề"
             disabled={isSubmitting}
           />
         </div>
         <div className="mb-4">
           <label htmlFor="content" className="block text-lg font-medium">
-            Nội dung bài viết
+            Nội Dung
           </label>
           <textarea
             id="content"
@@ -204,13 +225,13 @@ export default function BlogPage() {
             onChange={(e) => setContent(e.target.value)}
             className="w-full p-2 border rounded"
             rows={5}
-            placeholder="Nhập nội dung bài viết"
+            placeholder="Nhập Nội Dung"
             disabled={isSubmitting}
           />
         </div>
         <div className="mb-4">
           <label htmlFor="image" className="block text-lg font-medium">
-            Hình ảnh bài viết
+            Hình ảnh
           </label>
           <input
             type="file"
@@ -224,7 +245,7 @@ export default function BlogPage() {
             <img
               src={URL.createObjectURL(image)}
               alt="Preview"
-              className="w-full h-48 object-cover mt-2 rounded"
+              className="w-full h-full object-cover mt-2 rounded"
             />
           )}
         </div>
@@ -238,7 +259,7 @@ export default function BlogPage() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             className="w-full p-2 border rounded"
-            placeholder="Nhập mật khẩu để thêm bài viết"
+            placeholder="Nhập mật khẩu"
             disabled={isSubmitting}
           />
           {passwordError && (
@@ -264,36 +285,75 @@ export default function BlogPage() {
             className="border p-4 rounded flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4"
           >
             <div className="flex-1 min-w-0">
-              <Link href={`/vn/blog/${blog.id}`}>
-                <h3 className="text-xl font-medium text-blue-500 hover:underline truncate">
-                  {blog.title}
-                </h3>
-              </Link>
               {blog.imageUrl && (
                 <img
                   src={blog.imageUrl}
                   alt={blog.title}
-                  className="w-full h-48 object-cover mt-2 rounded"
+                  className="w-full h-full object-cover mt-2 rounded"
                 />
               )}
-              <p className="text-gray-600 truncate">
+              <Link href={`/vn/blog/${blog.id}`}>
+                <h3 className="text-2xl font-medium text-blue-500 hover:underline truncate mb-2 mt-6">
+                  {blog.title}
+                </h3>
+              </Link>
+              <p className="text-gray-600 truncate text-sm">
                 {blog.content
                   ? blog.content.slice(0, 100)
                   : "Không có nội dung..."}
                 ...
               </p>
             </div>
-            <button
-              onClick={() => handleDelete(blog.id)}
-              className={`px-3 py-1 rounded text-white ${
-                deletingId === blog.id
-                  ? "bg-red-300 cursor-not-allowed"
-                  : "bg-red-500 hover:bg-red-600"
-              }`}
-              disabled={deletingId === blog.id}
-            >
-              {deletingId === blog.id ? "Đang xóa..." : "Xóa"}
-            </button>
+            <div className="relative">
+              <button
+                onClick={() => initiateDelete(blog.id)}
+                className={`px-3 py-1 rounded text-white ${
+                  deletingId === blog.id
+                    ? "bg-red-300 cursor-not-allowed"
+                    : "bg-red-500 hover:bg-red-600"
+                }`}
+                disabled={deletingId === blog.id}
+              >
+                {deletingId === blog.id ? "Đang xóa..." : "Xóa"}
+              </button>
+              {showDeletePrompt === blog.id && (
+                <div className="absolute top-0 right-0 mt-10 bg-white border rounded p-4 shadow-lg z-10">
+                  <label
+                    htmlFor={`delete-password-${blog.id}`}
+                    className="block text-sm font-medium"
+                  >
+                    Nhập mật khẩu để xóa
+                  </label>
+                  <input
+                    type="password"
+                    id={`delete-password-${blog.id}`}
+                    value={deletePassword}
+                    onChange={(e) => setDeletePassword(e.target.value)}
+                    className="w-full p-2 border rounded mt-2"
+                    placeholder="Nhập mật khẩu"
+                  />
+                  {deletePasswordError && (
+                    <p className="text-red-500 mt-2 text-sm">
+                      {deletePasswordError}
+                    </p>
+                  )}
+                  <div className="mt-4 flex gap-2">
+                    <button
+                      onClick={() => handleDelete(blog.id)}
+                      className="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600"
+                    >
+                      Xác nhận
+                    </button>
+                    <button
+                      onClick={cancelDelete}
+                      className="bg-gray-500 text-white px-3 py-1 rounded hover:bg-gray-600"
+                    >
+                      Hủy
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
           </li>
         ))}
       </ul>
