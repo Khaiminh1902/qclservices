@@ -84,7 +84,7 @@ const Navbar_en = () => {
                   isActive("/en/blog") ? "underline font-bold" : "text-white"
                 }`}
               >
-                Blog
+                Information
               </Link>
               <Link
                 href="/en/contact"
@@ -144,7 +144,7 @@ const Navbar_en = () => {
                 isActive("/en/blog") ? "underline font-bold" : ""
               }`}
             >
-              Blog
+              Information
             </Link>
             <Link
               href="/en/contact"

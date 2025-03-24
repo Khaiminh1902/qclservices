@@ -89,7 +89,7 @@ const Navbar_vn = () => {
                   isActive("/vn/blog") ? "underline font-bold" : "text-white"
                 }`}
               >
-                Blog
+                Thông tin
               </Link>
               <Link
                 href="/vn/contact_vn"
@@ -151,7 +151,7 @@ const Navbar_vn = () => {
                 isActive("/vn/blog") ? "underline font-bold" : ""
               }`}
             >
-              Blog
+              Thông tin
             </Link>
             <Link
               href="/vn/contact_vn"
