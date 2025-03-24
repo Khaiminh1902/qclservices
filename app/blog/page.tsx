@@ -264,7 +264,7 @@ export default function BlogPage() {
             className="border p-4 rounded flex flex-col sm:flex-row sm:justify-between sm:items-start gap-4"
           >
             <div className="flex-1 min-w-0">
-              <Link href={`/vn/blog/${blog.id}`}>
+              <Link href={`/en/blog/${blog.id}`}>
                 <h3 className="text-xl font-medium text-blue-500 hover:underline truncate">
                   {blog.title}
                 </h3>
