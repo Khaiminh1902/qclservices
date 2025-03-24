@@ -197,7 +197,7 @@ export default function BlogPage() {
   return (
     <div className="container mx-auto p-4 sm:p-6 lg:p-8">
       <h1 className="text-3xl md:text-4xl font-bold text-[#d8a339] text-center mt-8 mb-6">
-        Thông Tin Hiểu Ích
+        Thông Tin Hữu Ích
       </h1>
 
       <form onSubmit={handleSubmit} className="mb-8">
@@ -217,7 +217,7 @@ export default function BlogPage() {
         </div>
         <div className="mb-4">
           <label htmlFor="content" className="block text-lg font-medium">
-            Nội Dung
+            Nội dung
           </label>
           <textarea
             id="content"
@@ -225,7 +225,7 @@ export default function BlogPage() {
             onChange={(e) => setContent(e.target.value)}
             className="w-full p-2 border rounded"
             rows={5}
-            placeholder="Nhập Nội Dung"
+            placeholder="Nhập nội dung"
             disabled={isSubmitting}
           />
         </div>
