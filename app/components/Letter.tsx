@@ -145,9 +145,14 @@ const Letter: FC = () => {
         </div>
       </section>
 
-      <div className="flex justify-center items-center mt-7">
+      <div className="flex-col md:flex-row lg:flex-row flex justify-center items-center mt-7 gap-6">
+        <Link href="/en/blog">
+          <Button className="h-[50px] w-[250px] bg-[#023f92] text-white font-semibold rounded-lg shadow-lg border-2 border-transparent hover:border-[#023f92] hover:bg-[#023e92e7] transition duration-300 ease-in-out transform hover:scale-105">
+            Find More Information
+          </Button>
+        </Link>
         <Link href="/en/contact">
-          <Button className="h-[50px] w-[250px] bg-[#d8a339] text-white font-semibold rounded-lg shadow-lg border-2 border-transparent hover:border-[#c58e2f] hover:bg-[#c58e2f] hover:text-black transition duration-300 ease-in-out transform hover:scale-105">
+          <Button className="h-[50px] w-[250px] bg-[#d8a339] text-white font-semibold rounded-lg shadow-lg border-2 border-transparent hover:border-[#c58e2f] hover:bg-[#c58e2f] transition duration-300 ease-in-out transform hover:scale-105">
             Contact Us Now
           </Button>
         </Link>

@@ -199,85 +199,7 @@ export default function BlogPage() {
       <h1 className="text-3xl md:text-4xl font-bold text-[#d8a339] text-center mt-8 mb-6">
         Thông Tin Hữu Ích
       </h1>
-
-      <form onSubmit={handleSubmit} className="mb-8">
-        <div className="mb-4">
-          <label htmlFor="title" className="block text-lg font-medium">
-            Tiêu đề
-          </label>
-          <input
-            type="text"
-            id="title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            className="w-full p-2 border rounded"
-            placeholder="Nhập tiêu đề"
-            disabled={isSubmitting}
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="content" className="block text-lg font-medium">
-            Nội dung
-          </label>
-          <textarea
-            id="content"
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            className="w-full p-2 border rounded"
-            rows={5}
-            placeholder="Nhập nội dung"
-            disabled={isSubmitting}
-          />
-        </div>
-        <div className="mb-4">
-          <label htmlFor="image" className="block text-lg font-medium">
-            Hình ảnh
-          </label>
-          <input
-            type="file"
-            id="image"
-            accept="image/*"
-            onChange={handleImageChange}
-            className="w-full p-2 border rounded"
-            disabled={isSubmitting}
-          />
-          {image && (
-            <img
-              src={URL.createObjectURL(image)}
-              alt="Preview"
-              className="w-full h-full object-cover mt-2 rounded"
-            />
-          )}
-        </div>
-        <div className="mb-4">
-          <label htmlFor="password" className="block text-lg font-medium">
-            Mật khẩu
-          </label>
-          <input
-            type="password"
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full p-2 border rounded"
-            placeholder="Nhập mật khẩu"
-            disabled={isSubmitting}
-          />
-          {passwordError && (
-            <p className="text-red-500 mt-2">{passwordError}</p>
-          )}
-        </div>
-        <button
-          type="submit"
-          className={`bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 ${
-            isSubmitting ? "opacity-50 cursor-not-allowed" : ""
-          }`}
-          disabled={isSubmitting}
-        >
-          {isSubmitting ? "Đang thêm bài viết..." : "Thêm bài viết"}
-        </button>
-      </form>
-
-      <h2 className="text-2xl font-semibold mb-4">Tất cả bài viết</h2>
+      <h2 className="text-2xl font-semibold mb-8">Tất cả bài viết</h2>
       <ul className="space-y-4">
         {blogs.map((blog) => (
           <li
@@ -357,6 +279,82 @@ export default function BlogPage() {
           </li>
         ))}
       </ul>
+      <form onSubmit={handleSubmit} className="mt-32">
+        <div className="mb-4">
+          <label htmlFor="title" className="block text-lg font-medium">
+            Tiêu đề
+          </label>
+          <input
+            type="text"
+            id="title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+            className="w-full p-2 border rounded"
+            placeholder="Nhập tiêu đề"
+            disabled={isSubmitting}
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="content" className="block text-lg font-medium">
+            Nội dung
+          </label>
+          <textarea
+            id="content"
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+            className="w-full p-2 border rounded"
+            rows={5}
+            placeholder="Nhập nội dung"
+            disabled={isSubmitting}
+          />
+        </div>
+        <div className="mb-4">
+          <label htmlFor="image" className="block text-lg font-medium">
+            Hình ảnh
+          </label>
+          <input
+            type="file"
+            id="image"
+            accept="image/*"
+            onChange={handleImageChange}
+            className="w-full p-2 border rounded"
+            disabled={isSubmitting}
+          />
+          {image && (
+            <img
+              src={URL.createObjectURL(image)}
+              alt="Preview"
+              className="w-full h-full object-cover mt-2 rounded"
+            />
+          )}
+        </div>
+        <div className="mb-4">
+          <label htmlFor="password" className="block text-lg font-medium">
+            Mật khẩu
+          </label>
+          <input
+            type="password"
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            className="w-full p-2 border rounded"
+            placeholder="Nhập mật khẩu"
+            disabled={isSubmitting}
+          />
+          {passwordError && (
+            <p className="text-red-500 mt-2">{passwordError}</p>
+          )}
+        </div>
+        <button
+          type="submit"
+          className={`bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 ${
+            isSubmitting ? "opacity-50 cursor-not-allowed" : ""
+          }`}
+          disabled={isSubmitting}
+        >
+          {isSubmitting ? "Đang thêm bài viết..." : "Thêm bài viết"}
+        </button>
+      </form>
     </div>
   );
 }
