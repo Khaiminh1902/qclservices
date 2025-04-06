@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { SpeedInsights } from "@vercel/speed-insights/next";
+import { Analytics } from "@vercel/analytics/react";
 import NavbarWrapper from "./components/NavbarWrapper";
 
 const geistSans = Geist({
@@ -33,6 +34,7 @@ export default function RootLayout({
         <NavbarWrapper />
         {children}
         <SpeedInsights />
+        <Analytics />
       </body>
     </html>
   );
